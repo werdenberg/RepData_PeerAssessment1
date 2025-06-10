@@ -32,10 +32,28 @@ head(activity)
 ```
 
 ## What is mean total number of steps taken per day?
-To get a feeling for the distribution inside the dataset we plot a histogram for the sum of steps per day.
+
+To get a feeling for the distribution inside the dataset we calculate the sum of steps per day.
 
 ``` r
 activity_sum<-aggregate(steps ~ date, activity, FUN = sum)
+summary(activity_sum)
+```
+
+```
+##      date               steps      
+##  Length:53          Min.   :   41  
+##  Class :character   1st Qu.: 8841  
+##  Mode  :character   Median :10765  
+##                     Mean   :10766  
+##                     3rd Qu.:13294  
+##                     Max.   :21194
+```
+
+We can plot this data in a histogram
+
+
+``` r
 hist(activity_sum$steps, breaks = 20,
      xlab = "Total Number of steps",
      main = "Histogram of total steps per day",
@@ -44,7 +62,7 @@ axis(1, at= c(seq(0, 22000, by = 1000)),
      gap.axis = 2.7)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-3-1.png)<!-- -->
 
 What are the means and medians for the data?
 
@@ -79,19 +97,8 @@ We can see that the median for each day is 0.
 This means more than half of the time intervals of each day have 0 measured steps.
 
 ## What is the average daily activity pattern?
-Let's take a look at the data on a time plot.
 
-``` r
-plot(activity_mean$steps ~ as.POSIXct(activity_mean$date, format = "%Y-%m-%d"),
-     type = "b",
-     ylab = "Average number of steps",
-     xlab = "Date",
-     main = "Average number of steps/interval on each day")
-```
-
-![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
-## Average steps per interval
-Let us look at the average steps per interval.
+Let us look at the average steps per interval in a time plot.
 
 ``` r
 activity_interval<-aggregate(steps ~ interval, activity, FUN = mean)
@@ -103,6 +110,7 @@ plot(activity_interval$steps ~ activity_interval$interval,
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+
 So what is the interval with the highest average steps taken?
 
 ``` r
@@ -116,12 +124,16 @@ print(max_interval$interval)
 
 
 ## Imputing missing values
+
 First let's see how many missing values the dataset has.
 
 ``` r
-nai<-sum(is.na(activity$steps))
+sum(is.na(activity$steps))
 ```
-That is ```{r} nai``` missing values!
+
+```
+## [1] 2304
+```
 
 Let us replace each missing value with the mean of the corresponding interval.
 
@@ -155,6 +167,11 @@ axis(1, at= c(seq(0, 22000, by = 1000)))
 
 ![](PA1_template_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
+``` r
+# reset parameters
+par(mfrow=c(1,1))
+par(mar = c(4, 4, 4, 4))
+```
 
 We can see that we gained a few days of data that were missing before replacing the missing data. All of them fall into the same region on the histogram, that had the highest frequency before our imputing. This might hint towards whole days missing their data as the all get the same number of steps assigned to them by our imputing method.
 
@@ -196,5 +213,10 @@ plot(weekend$steps ~ weekend$interval, type = "l",
 title(main = "Weekends", line = -1, adj = 0.1)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
 
+``` r
+# reset parameters
+par(mfrow=c(1,1))
+par(mar = c(4, 4, 4, 4))
+```

@@ -99,8 +99,6 @@ hist(activity_sum$steps, breaks = 20,
      xaxt = "n",
      ylim = c(0,20))
 axis(1, at= c(seq(0, 22000, by = 1000)))
-```
-```{r include=FALSE}
 # reset parameters
 par(mfrow=c(1,1))
 par(mar = c(4, 4, 4, 4))
@@ -142,8 +140,6 @@ plot(weekend$steps ~ weekend$interval, type = "l",
      xlab = "Interval",
      ylab = "")
 title(main = "Weekends", line = -1, adj = 0.1)
-```
-```{r include=FALSE}
 # reset parameters
 par(mfrow=c(1,1))
 par(mar = c(4, 4, 4, 4))
