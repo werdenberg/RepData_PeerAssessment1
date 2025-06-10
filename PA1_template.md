@@ -91,7 +91,7 @@ plot(activity_mean$steps ~ as.POSIXct(activity_mean$date, format = "%Y-%m-%d"),
 
 ![](PA1_template_files/figure-html/unnamed-chunk-4-1.png)<!-- -->
 ## Average steps per interval
-So what is the interval with the highest average steps taken?
+Let us look at the average steps per interval.
 
 ``` r
 activity_interval<-aggregate(steps ~ interval, activity, FUN = mean)
@@ -103,6 +103,7 @@ plot(activity_interval$steps ~ activity_interval$interval,
 ```
 
 ![](PA1_template_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
+So what is the interval with the highest average steps taken?
 
 ``` r
 max_interval<- activity_interval[which.max(activity_interval$steps), ]
@@ -112,6 +113,7 @@ print(max_interval$interval)
 ```
 ## [1] 835
 ```
+
 
 ## Imputing missing values
 First let's see how many missing values the dataset has.
@@ -151,7 +153,7 @@ hist(activity_sum$steps, breaks = 20,
 axis(1, at= c(seq(0, 22000, by = 1000)))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-8-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-9-1.png)<!-- -->
 
 
 We can see that we gained a few days of data that were missing before replacing the missing data. All of them fall into the same region on the histogram, that had the highest frequency before our imputing. This might hint towards whole days missing their data as the all get the same number of steps assigned to them by our imputing method.
@@ -194,5 +196,5 @@ plot(weekend$steps ~ weekend$interval, type = "l",
 title(main = "Weekends", line = -1, adj = 0.1)
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-11-1.png)<!-- -->
+![](PA1_template_files/figure-html/unnamed-chunk-12-1.png)<!-- -->
 

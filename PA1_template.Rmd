@@ -50,7 +50,7 @@ plot(activity_mean$steps ~ as.POSIXct(activity_mean$date, format = "%Y-%m-%d"),
      main = "Average number of steps/interval on each day")
 ```
 ## Average steps per interval
-So what is the interval with the highest average steps taken?
+Let us look at the average steps per interval.
 ```{r}
 activity_interval<-aggregate(steps ~ interval, activity, FUN = mean)
 plot(activity_interval$steps ~ activity_interval$interval,
@@ -58,10 +58,13 @@ plot(activity_interval$steps ~ activity_interval$interval,
      xlab = "Interval",
      ylab = "Steps",
      main = "Average steps per interval")
-
+```
+So what is the interval with the highest average steps taken?
+```{r}
 max_interval<- activity_interval[which.max(activity_interval$steps), ]
 print(max_interval$interval)
 ```
+
 
 ## Imputing missing values
 First let's see how many missing values the dataset has.
