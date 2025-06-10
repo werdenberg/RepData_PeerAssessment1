@@ -21,9 +21,16 @@ head(activity)
 ```
 
 ## What is mean total number of steps taken per day?
-To get a feeling for the distribution inside the dataset we plot a histogram for the sum of steps per day.
+
+To get a feeling for the distribution inside the dataset we calculate the sum of steps per day.
 ```{r}
 activity_sum<-aggregate(steps ~ date, activity, FUN = sum)
+summary(activity_sum)
+```
+
+We can plot this data in a histogram
+
+```{r}
 hist(activity_sum$steps, breaks = 20,
      xlab = "Total Number of steps",
      main = "Histogram of total steps per day",
@@ -41,16 +48,8 @@ We can see that the median for each day is 0.
 This means more than half of the time intervals of each day have 0 measured steps.
 
 ## What is the average daily activity pattern?
-Let's take a look at the data on a time plot.
-```{r}
-plot(activity_mean$steps ~ as.POSIXct(activity_mean$date, format = "%Y-%m-%d"),
-     type = "b",
-     ylab = "Average number of steps",
-     xlab = "Date",
-     main = "Average number of steps/interval on each day")
-```
-## Average steps per interval
-Let us look at the average steps per interval.
+
+Let us look at the average steps per interval in a time plot.
 ```{r}
 activity_interval<-aggregate(steps ~ interval, activity, FUN = mean)
 plot(activity_interval$steps ~ activity_interval$interval,
@@ -59,6 +58,7 @@ plot(activity_interval$steps ~ activity_interval$interval,
      ylab = "Steps",
      main = "Average steps per interval")
 ```
+
 So what is the interval with the highest average steps taken?
 ```{r}
 max_interval<- activity_interval[which.max(activity_interval$steps), ]
@@ -67,11 +67,11 @@ print(max_interval$interval)
 
 
 ## Imputing missing values
+
 First let's see how many missing values the dataset has.
 ```{r}
-nai<-sum(is.na(activity$steps))
+sum(is.na(activity$steps))
 ```
-That is ```{r} nai``` missing values!
 
 Let us replace each missing value with the mean of the corresponding interval.
 ```{r}
