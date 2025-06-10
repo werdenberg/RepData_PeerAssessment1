@@ -41,11 +41,9 @@ axis(1, at= c(seq(0, 22000, by = 1000)),
 
 What are the means and medians for the data?
 ```{r}
-activity_mean<-aggregate(steps ~ date, activity, FUN = mean); summary(activity_mean)
-activity_median<-aggregate(steps ~ date, activity, FUN = median); summary(activity_median)
+activity_mean<-mean(activity_sum$steps, na.rm=T); activity_mean
+activity_median<-mean(activity_sum$steps, na.rm=T); activity_median
 ```
-We can see that the median for each day is 0.
-This means more than half of the time intervals of each day have 0 measured steps.
 
 ## What is the average daily activity pattern?
 
